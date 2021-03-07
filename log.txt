@@ -1,1 +1,8 @@
 Log:
+
+GruppeNavn: B99
+
+Gruppemedlemmer:
+Mikkel Dahl
+Mathias Drejer
+Christian Rosenbaek
