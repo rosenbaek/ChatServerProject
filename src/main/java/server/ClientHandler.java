@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ClientHandler implements Runnable{
     Protocol protocol;
-    boolean run = true;
+    boolean loggedIn = false;
     Socket socket;
     Server server;
     PrintWriter outputStream;
@@ -33,11 +33,15 @@ public class ClientHandler implements Runnable{
         outputStream = new PrintWriter(socket.getOutputStream(),true);
         inputStream = new Scanner(socket.getInputStream());
         protocol = new Protocol(outputStream);
+
+
         System.out.println("New client connected. Thread:" + Thread.currentThread().getName() );
 
-        while (run) {
+        //This line below is to make sure the connect statement is the first executed statement
+        loggedIn = protocol.login(inputStream.nextLine());
+        while (loggedIn) {
             String inputMsg = inputStream.nextLine();
-            run = protocol.handleCommand(inputMsg);
+            loggedIn = protocol.handleCommand(inputMsg);
         }
         socket.close(); //Måske ikke helt efter protocol
     }
