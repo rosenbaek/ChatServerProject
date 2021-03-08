@@ -8,11 +8,23 @@ Mathias Drejer
 Christian Rosenbaek
 
 
+Our progress history is based on our git commits.
+
 Mandag:
 How far you have come
+-Agreed on overall architecture
+-Made server handle multiple clients simultaniously.
+-Close protocal implemented at server level
+-Connect protocol implemented at server level
+-ONLINE protocal implemented at server level
+-Refactor splitting of inputMessages to do less repeated code
+
 Problems you have had
+-None
 Who did what
+-We are working together sharing screen and livecoding.
 Do you need help
+-NOT SO FAR! :) :)
 
 
 Tirsdag:
