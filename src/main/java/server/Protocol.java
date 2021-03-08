@@ -47,7 +47,7 @@ public class Protocol {
             if (tmp.getUsername().equals(msg)){
                 user = tmp;
                 user.setToOnline();
-                showOnlineUsers();
+                outputStream.println(showOnlineUsers());
                 return true;
             }
         }
@@ -56,7 +56,7 @@ public class Protocol {
         return false;
     }
 
-    public void showOnlineUsers(){
+    public String showOnlineUsers(){
         StringBuilder result = new StringBuilder();
         result.append("ONLINE#");
         int counter=0;
@@ -70,7 +70,7 @@ public class Protocol {
                 }
             }
         }
-        outputStream.println(result.toString());
+        return result.toString();
     }
 
     public User getUser() {
