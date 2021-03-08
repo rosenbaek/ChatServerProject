@@ -9,6 +9,7 @@ public class Protocol {
     int charAt;
     PrintWriter outputStream;
     boolean loggedIn = false;
+    User user;
 
 
     public Protocol(PrintWriter outputStream) {
@@ -35,12 +36,36 @@ public class Protocol {
 
         for (User tmp: Server.hardcodedUsers.values()) {
             if (tmp.getUsername().equals(username)){
+                user = tmp;
+                user.setToOnline();
+                showOnlineUsers();
                 return true;
             }
         }
         System.out.println(Thread.currentThread().getName()+": CLOSE#2");//CLOSE#2 = User not found
         outputStream.println("CLOSE#2");
         return false;
+    }
+
+    public void showOnlineUsers(){
+        StringBuilder result = new StringBuilder();
+        result.append("ONLINE#");
+        int counter=0;
+        for (User tmp:Server.hardcodedUsers.values()) {
+            if (tmp.isOnline()==true){
+                if (counter==0) {
+                    result.append(tmp.getUsername());
+                    counter++;
+                } else {
+                    result.append("," + tmp.getUsername());
+                }
+            }
+        }
+        outputStream.println(result.toString());
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public boolean handleCommand(String inputMsg) {
@@ -77,4 +102,6 @@ public class Protocol {
         }
         return true;
     }
+
+
 }

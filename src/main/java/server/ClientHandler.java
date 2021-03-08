@@ -38,11 +38,15 @@ public class ClientHandler implements Runnable{
         System.out.println("New client connected. Thread:" + Thread.currentThread().getName() );
 
         //This line below is to make sure the connect statement is the first executed statement
-        loggedIn = protocol.login(inputStream.nextLine());
+        String firstInput = inputStream.nextLine();
+        loggedIn = protocol.login(firstInput);
+        User user = protocol.getUser();
+
         while (loggedIn) {
             String inputMsg = inputStream.nextLine();
             loggedIn = protocol.handleCommand(inputMsg);
         }
+        user.setToOffline();
         socket.close(); //Måske ikke helt efter protocol
     }
 }
