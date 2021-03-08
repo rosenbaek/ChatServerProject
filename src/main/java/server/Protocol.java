@@ -16,15 +16,24 @@ public class Protocol {
         this.outputStream = outputStream;
     }
 
-    public boolean login(String inputMsg){
-        String username;
+    //Function split inputMsg
+    //if inputmsg.lengt
+    public boolean splitInputMessage(String inputMsg) {
         try {
             charAt = inputMsg.indexOf("#");
             command = inputMsg.substring(0,charAt);
-            username = inputMsg.substring(charAt+1);
+            msg = inputMsg.substring(charAt+1);
         } catch (Exception e) {
             System.out.println(Thread.currentThread().getName()+": CLOSE#1");//CLOSE#1 = Illegal input recieved
             outputStream.println("CLOSE#1");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean login(String inputMsg){
+
+        if (!splitInputMessage(inputMsg)){
             return false;
         }
 
@@ -35,7 +44,7 @@ public class Protocol {
         }
 
         for (User tmp: Server.hardcodedUsers.values()) {
-            if (tmp.getUsername().equals(username)){
+            if (tmp.getUsername().equals(msg)){
                 user = tmp;
                 user.setToOnline();
                 showOnlineUsers();
@@ -69,14 +78,7 @@ public class Protocol {
     }
 
     public boolean handleCommand(String inputMsg) {
-        try {
-            charAt = inputMsg.indexOf("#");
-            command = inputMsg.substring(0,charAt);
-            msg = inputMsg.substring(charAt+1);
-            System.out.println(msg);
-        } catch (IllegalArgumentException e) {
-            System.out.println(Thread.currentThread().getName()+": CLOSE#1");//CLOSE#1 = Illegal input recieved
-            outputStream.println("CLOSE#1");
+        if (!splitInputMessage(inputMsg)){
             return false;
         }
 
