@@ -29,6 +29,7 @@ Do you need help
 
 Tirsdag:
 How far you have come
+-Added jUnit tests for user and protocol classes
 Problems you have had
 Who did what
 Do you need help
