@@ -1,3 +1,3 @@
 #!/bin/sh
 
-java -cp chat-server.jar client.ChatClientMain 127.0.0.1 8088
+java -cp chat-server.jar client.ChatClientMain 64.227.113.104 8088
