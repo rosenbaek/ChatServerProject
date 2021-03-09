@@ -30,9 +30,18 @@ Do you need help
 Tirsdag:
 How far you have come
 -Added jUnit tests for user and protocol classes
+-Send to users functionality and send to all functionality added
+-Fixed so same user cant be logged in twice
+-Added functionality to send ONLINE# message on every login/logoff
+-Added Client code
+-Bug fixing
+-Started writing integrationTests
 Problems you have had
+-None
 Who did what
+-We are working together sharing screen and livecoding.
 Do you need help
+-NO
 
 
 Onsdag:
