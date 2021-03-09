@@ -35,10 +35,12 @@ public class Protocol {
 
     public boolean login(String inputMsg){
 
+        //Used to split the input msg, and returns true if success.
         if (!splitInputMessage(inputMsg)){
             return false;
         }
 
+        //Check if protocol is followed
         if (!command.equals("CONNECT")){
             System.out.println(Thread.currentThread().getName()+": CLOSE#1");//CLOSE#1 = Illegal input recieved
             outputStream.println("CLOSE#1");
@@ -46,7 +48,7 @@ public class Protocol {
         }
 
         for (User tmp: Server.hardcodedUsers.values()) {
-            if (tmp.getUsername().equals(msg)){
+            if (tmp.getUsername().equals(msg) && !tmp.isOnline()){
                 user = tmp;
                 user.setToOnline();
                 outputStream.println(showOnlineUsers());
