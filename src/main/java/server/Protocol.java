@@ -51,7 +51,6 @@ public class Protocol {
             if (tmp.getUsername().equals(msg) && !tmp.isOnline()){
                 user = tmp;
                 user.setToOnline();
-                outputStream.println(showOnlineUsers());
                 return true;
             }
         }

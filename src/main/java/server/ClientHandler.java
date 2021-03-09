@@ -44,12 +44,17 @@ public class ClientHandler implements Runnable{
         if(loggedIn){
             user = protocol.getUser();
             server.addToMyClients(user.getUsername(),this);
+            //next two lines is used to send ONLINE# message everytime someone logs in
+            String[] toUsers = {"*"};
+            server.sendToUsers(toUsers,protocol.showOnlineUsers());
             while (loggedIn) {
                 String inputMsg = inputStream.nextLine();
                 loggedIn = protocol.handleCommand(inputMsg);
             }
             user.setToOffline();
             server.removeFromMyClients(user.getUsername());
+            //Used to send ONLINE# message everytime someone logs off
+            server.sendToUsers(toUsers,protocol.showOnlineUsers());
         }
         socket.close(); //Måske ikke helt efter protocol
     }
