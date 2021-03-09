@@ -18,6 +18,8 @@ public class ChatClientMain {
             System.out.println("Invalid port or ip , using defaults port :");
         } catch (IOException e) {
             System.out.println("Failed when trying to connect to server");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
