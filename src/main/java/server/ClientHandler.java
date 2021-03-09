@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ClientHandler implements Runnable{
@@ -13,6 +14,7 @@ public class ClientHandler implements Runnable{
     PrintWriter outputStream;
     Scanner inputStream;
     User user;
+    String[] toUsers = {"*"};
 
 
     public ClientHandler(Socket socket, Server server) {
@@ -43,16 +45,23 @@ public class ClientHandler implements Runnable{
         loggedIn = protocol.login(firstInput);
         if(loggedIn){
             user = protocol.getUser();
+            System.out.println("User logged in: "+user.getUsername());
             server.addToMyClients(user.getUsername(),this);
-            //next two lines is used to send ONLINE# message everytime someone logs in
-            String[] toUsers = {"*"};
+            //next line is used to send ONLINE# message everytime someone logs in
             server.sendToUsers(toUsers,protocol.showOnlineUsers());
             while (loggedIn) {
-                String inputMsg = inputStream.nextLine();
-                loggedIn = protocol.handleCommand(inputMsg);
+                try {
+                    String inputMsg = inputStream.nextLine();
+                    loggedIn = protocol.handleCommand(inputMsg);
+                }catch (Exception e){
+                    System.out.println("Client terminated the session outside protocol: "+Thread.currentThread().getName());
+                    loggedIn = false;
+                }
             }
+
             user.setToOffline();
             server.removeFromMyClients(user.getUsername());
+            System.out.println("User logged off: "+user.getUsername());
             //Used to send ONLINE# message everytime someone logs off
             server.sendToUsers(toUsers,protocol.showOnlineUsers());
         }

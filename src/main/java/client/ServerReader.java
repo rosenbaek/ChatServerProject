@@ -12,9 +12,14 @@ class ServerReader implements Runnable {
 
     @Override
     public void run() {
-        while(true) {
-            String message = scanner.nextLine();
-            System.out.println(message);
+        boolean run = true;
+        while(run) {
+            try {
+                String message = scanner.nextLine();
+                System.out.println(message);
+            }catch (Exception e){
+                run = false;
+            }
         }
     }
 }
