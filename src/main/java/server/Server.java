@@ -28,8 +28,33 @@ public class Server {
 
         while (true) {
             Socket socket = ss.accept(); //Blocking call
-            es.execute(new ClientHandler(socket, this));
+            ClientHandler clienthandler = new ClientHandler(socket,this);
+            es.execute(clienthandler);
+        }
+    }
+    public void addToMyClients(String username, ClientHandler clientHandler){
+        this.myClients.put(username,clientHandler);
+    }
+    public void removeFromMyClients(String username){
+        this.myClients.remove(username);
+    }
+
+    public void sendToUsers(String[] toUsers, String msg){
+        //Used to send to all users
+        if(toUsers[0].equals("*")){
+            myClients.values().forEach(ClientHandler -> ClientHandler.protocol.msgFromUser(msg));
+            return;
         }
 
+        //Used to send to specific users
+        ClientHandler clientHandler;
+        for (String tmp:myClients.keySet()) {
+            for (int i = 0; i < toUsers.length; i++) {
+                if (toUsers[i].equals(tmp)){
+                    clientHandler = myClients.get(tmp);
+                    clientHandler.protocol.msgFromUser(msg);
+                }
+            }
+        }
     }
 }

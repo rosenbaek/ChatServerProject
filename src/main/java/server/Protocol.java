@@ -10,10 +10,12 @@ public class Protocol {
     PrintWriter outputStream;
     boolean loggedIn = false;
     User user;
+    Server server;
 
 
-    public Protocol(PrintWriter outputStream) {
+    public Protocol(PrintWriter outputStream,Server server) {
         this.outputStream = outputStream;
+        this.server = server;
     }
 
     //Function split inputMsg
@@ -90,11 +92,17 @@ public class Protocol {
             case "SEND":
                 // when original input is SEND#PETER#Message it will result in PETER#Message when command is removed
                 //Therefor we use the same procedure again here in the SEND case so we get a user and a message.
+                String[] toUsers;
                 int newCharAt = msg.indexOf("#");
-                String user = msg.substring(0,newCharAt);
+                String users = msg.substring(0,newCharAt);
                 String message = msg.substring(newCharAt+1);
-                System.out.println("User: "+user+". Message: "+message);
-                System.out.println("Send Command");
+
+                if(users.equals("*")){
+
+                }
+                toUsers = users.split(",");
+                String finalMessage = "MESSAGE#"+user.getUsername()+"#"+message;
+                server.sendToUsers(toUsers,finalMessage);
                 //CLOSE#2 = User not found
                 break;
             default:
@@ -105,5 +113,8 @@ public class Protocol {
         return true;
     }
 
+    public void msgFromUser(String msg){
+        outputStream.println(msg);
+    }
 
 }

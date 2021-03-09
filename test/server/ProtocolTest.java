@@ -18,11 +18,12 @@ class ProtocolTest {
 
     Protocol protocol;
     PrintWriter outputStream;
+    Server server;
 
     @BeforeEach
     void setUp() {
         outputStream = new PrintWriter(System.out);
-        protocol = new Protocol(outputStream);
+        protocol = new Protocol(outputStream,server);
     }
 
     @Test

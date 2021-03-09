@@ -12,6 +12,7 @@ public class ClientHandler implements Runnable{
     Server server;
     PrintWriter outputStream;
     Scanner inputStream;
+    User user;
 
 
     public ClientHandler(Socket socket, Server server) {
@@ -32,7 +33,7 @@ public class ClientHandler implements Runnable{
     private void handler() throws IOException {
         outputStream = new PrintWriter(socket.getOutputStream(),true);
         inputStream = new Scanner(socket.getInputStream());
-        protocol = new Protocol(outputStream);
+        protocol = new Protocol(outputStream,server);
 
 
         System.out.println("New client connected. Thread:" + Thread.currentThread().getName() );
@@ -40,13 +41,16 @@ public class ClientHandler implements Runnable{
         //This line below is to make sure the connect statement is the first executed statement
         String firstInput = inputStream.nextLine();
         loggedIn = protocol.login(firstInput);
-        User user = protocol.getUser();
-
-        while (loggedIn) {
-            String inputMsg = inputStream.nextLine();
-            loggedIn = protocol.handleCommand(inputMsg);
+        if(loggedIn){
+            user = protocol.getUser();
+            server.addToMyClients(user.getUsername(),this);
+            while (loggedIn) {
+                String inputMsg = inputStream.nextLine();
+                loggedIn = protocol.handleCommand(inputMsg);
+            }
+            user.setToOffline();
+            server.removeFromMyClients(user.getUsername());
         }
-        user.setToOffline();
         socket.close(); //Måske ikke helt efter protocol
     }
 }
