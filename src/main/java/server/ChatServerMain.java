@@ -20,7 +20,8 @@ public class ChatServerMain {
                 new Server().startServer(port);
             }
             else {
-                /*Remove before flight
+                /*
+                //Remove before flight
                 try {
                     new Server().startServer(port);
                 } catch (IOException e) {
