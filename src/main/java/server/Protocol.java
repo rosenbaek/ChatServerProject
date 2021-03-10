@@ -27,7 +27,7 @@ public class Protocol {
             command = inputMsg.substring(0,charAt);
             msg = inputMsg.substring(charAt+1);
         } catch (Exception e) {
-            userLog = "("+Thread.currentThread().getName()+")"+" CLOSE#1 "+user.getUsername();
+            userLog = "("+Thread.currentThread().getName()+")"+" CLOSE#1 attempted command: "+inputMsg;
             System.out.println(userLog);//CLOSE#1 = Illegal input recieved
             outputStream.println("CLOSE#1");
             LogFile.writeToLog(userLog, LogFile.Level.ERROR);
