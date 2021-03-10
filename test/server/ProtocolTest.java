@@ -1,6 +1,7 @@
 package server;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
@@ -103,8 +104,9 @@ class ProtocolTest {
         assertEquals("Mikkel",protocol.getUser().getUsername());
     }
 
+    @Disabled
     @Test
     void handleCommand() {
-        //TODO: Create tests when function works!
+        //Is tested as integration test
     }
 }

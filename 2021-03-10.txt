@@ -267,3 +267,59 @@
 12:09:54 INFO (pool-1-thread-18) User logged off: Mikkel
 12:09:54 ERROR (pool-1-thread-5) Client terminated the session outside protocol: Christian
 12:09:54 INFO (pool-1-thread-5) User logged off: Christian
+23:13:17 INFO (pool-1-thread-1) User logged in: Mikkel
+23:13:17 INFO (pool-1-thread-1) User logged off: Mikkel
+23:13:31 INFO (pool-1-thread-8) User logged in: Mikkel
+23:13:31 ERROR (pool-1-thread-1) CLOSE#2 attempted username: NoUser
+23:13:31 INFO (pool-1-thread-5) User logged in: Christian
+23:13:31 ERROR (pool-1-thread-8) Client terminated the session outside protocol: Mikkel
+23:13:31 ERROR (pool-1-thread-5) Client terminated the session outside protocol: Christian
+23:13:31 INFO (pool-1-thread-8) User logged off: Mikkel
+23:13:31 INFO (pool-1-thread-5) User logged off: Christian
+23:13:31 INFO (pool-1-thread-1) User logged in: Mikkel
+23:13:31 INFO (pool-1-thread-10) User logged in: Mathias
+23:13:31 INFO (pool-1-thread-9) User logged in: Christian
+23:13:31 INFO (pool-1-thread-8) User logged in: Lars
+23:13:31 ERROR (pool-1-thread-1) Client terminated the session outside protocol: Mikkel
+23:13:31 ERROR (pool-1-thread-9) Client terminated the session outside protocol: Christian
+23:13:31 ERROR (pool-1-thread-8) Client terminated the session outside protocol: Lars
+23:13:31 ERROR (pool-1-thread-10) Client terminated the session outside protocol: Mathias
+23:13:31 INFO (pool-1-thread-9) User logged off: Christian
+23:13:31 INFO (pool-1-thread-1) User logged off: Mikkel
+23:13:31 INFO (pool-1-thread-10) User logged off: Mathias
+23:13:31 INFO (pool-1-thread-8) User logged off: Lars
+23:13:31 INFO (pool-1-thread-5) User logged in: Mikkel
+23:13:31 INFO (pool-1-thread-5) User logged off: Mikkel
+23:13:31 INFO (pool-1-thread-10) User logged in: Mikkel
+23:13:31 ERROR (pool-1-thread-10) CLOSE#1 attempted command: fejl
+23:13:31 INFO (pool-1-thread-10) User logged off: Mikkel
+23:13:31 ERROR (pool-1-thread-12) CLOSE#1 
+23:13:31 INFO (pool-1-thread-10) User logged in: Mikkel
+23:13:31 INFO (pool-1-thread-18) User logged in: Christian
+23:13:31 ERROR (pool-1-thread-10) Client terminated the session outside protocol: Mikkel
+23:13:31 INFO (pool-1-thread-10) User logged off: Mikkel
+23:13:31 INFO (pool-1-thread-20) User logged in: Mikkel
+23:13:31 ERROR (pool-1-thread-20) CLOSE#2 Mikkel
+23:13:31 INFO (pool-1-thread-20) User logged off: Mikkel
+23:14:53 INFO (pool-1-thread-1) User logged in: Mikkel
+23:14:53 INFO (pool-1-thread-1) User logged off: Mikkel
+23:15:58 INFO (pool-1-thread-1) User logged in: Mikkel
+23:15:58 INFO (pool-1-thread-5) User logged in: Christian
+23:15:58 ERROR (pool-1-thread-1) Client terminated the session outside protocol: Mikkel
+23:15:58 INFO (pool-1-thread-1) User logged off: Mikkel
+23:15:58 ERROR (pool-1-thread-5) Client terminated the session outside protocol: Christian
+23:15:58 INFO (pool-1-thread-5) User logged off: Christian
+23:17:26 INFO (pool-1-thread-1) User logged in: Mikkel
+23:17:26 INFO (pool-1-thread-1) User logged off: Mikkel
+23:20:22 INFO (pool-1-thread-1) User logged in: Mikkel
+23:20:22 INFO (pool-1-thread-5) User logged in: Christian
+23:20:22 ERROR (pool-1-thread-1) Client terminated the session outside protocol: Mikkel
+23:20:22 INFO (pool-1-thread-1) User logged off: Mikkel
+23:20:22 ERROR (pool-1-thread-5) Client terminated the session outside protocol: Christian
+23:20:22 INFO (pool-1-thread-5) User logged off: Christian
+23:20:43 INFO (pool-1-thread-1) User logged in: Mikkel
+23:20:43 INFO (pool-1-thread-5) User logged in: Christian
+23:20:43 ERROR (pool-1-thread-1) Client terminated the session outside protocol: Mikkel
+23:20:43 INFO (pool-1-thread-1) User logged off: Mikkel
+23:20:43 ERROR (pool-1-thread-5) Client terminated the session outside protocol: Christian
+23:20:43 INFO (pool-1-thread-5) User logged off: Christian

@@ -144,4 +144,12 @@ public class IntegrationTest {
         assertEquals("CLOSE#1", scannerMikkel.nextLine()); //We have not created a client, so NoSuchElement expected
     }
 
+    @Test
+    public void testClose0 (){
+        mikkelOutputStream.println("CONNECT#Mikkel");
+        System.out.println(scannerMikkel.nextLine()); //Disregard online msg
+        mikkelOutputStream.println("CLOSE#");
+        assertEquals("CLOSE#0",scannerMikkel.nextLine());
+    }
+
 }
