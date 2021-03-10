@@ -10,6 +10,8 @@ public class Client {
     PrintWriter outputStream;
     Scanner inputStream;
     static boolean keepRunning = true;
+
+
     public void connect(String ip, int port) throws IOException, InterruptedException {
         socket = new Socket(ip,port);
         outputStream = new PrintWriter(socket.getOutputStream(),true);
@@ -25,11 +27,10 @@ public class Client {
         while(keepRunning){
             String msgToSend = keyboard.nextLine();
             outputStream.println(msgToSend);
-            if(msgToSend.equals("CLOSE#")){
+            if (msgToSend.equals("CLOSE#")) {
                 keepRunning = false;
             }
         }
-        t.join();
         socket.close();
 
     }

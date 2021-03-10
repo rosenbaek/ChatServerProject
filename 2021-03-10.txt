@@ -1,0 +1,10 @@
+10:46:14 ERROR (pool-1-thread-1) CLOSE#1 attempted command: adsasdas
+10:47:03 ERROR (pool-1-thread-3) CLOSE#1 attempted command: asdasda
+10:47:44 INFO (pool-1-thread-4) User logged in: Christian
+10:47:47 INFO (pool-1-thread-4) User logged off: Christian
+10:54:59 ERROR (pool-1-thread-5) CLOSE#1 attempted command: dadada
+10:55:52 ERROR (pool-1-thread-1) CLOSE#1 attempted command: dfaada
+10:56:37 ERROR (pool-1-thread-3) CLOSE#1 attempted command: dasdas
+10:58:39 ERROR (pool-1-thread-4) CLOSE#1 attempted command: fsdf
+11:00:17 ERROR (pool-1-thread-5) CLOSE#1 attempted command: sasda
+11:00:39 ERROR (pool-1-thread-1) CLOSE#1 attempted command: dasda
