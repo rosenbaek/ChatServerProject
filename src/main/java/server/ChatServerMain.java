@@ -14,20 +14,20 @@ public class ChatServerMain {
         String logFile = "log.txt";  //Do we need this
 
         try {
-            if (args.length <= 2) {
+            if (args.length > 1) {
                 port = Integer.parseInt(args[0]);
-                //logFile = args[1];
+                logFile = args[1];
                 new Server().startServer(port);
             }
             else {
-                /*
+
                 //Remove before flight
                 try {
                     new Server().startServer(port);
                 } catch (IOException e) {
                     e.printStackTrace();
-                }*/
-                throw new IllegalArgumentException("Server not provided with the right arguments");
+                }
+               // throw new IllegalArgumentException("Server not provided with the right arguments");
             }
         } catch (NumberFormatException ne) {
             System.out.println("Illegal inputs provided when starting the server!");

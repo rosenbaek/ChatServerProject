@@ -4,23 +4,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class LogFile {
-    private static int day;
-    private static int month;
-    private static int year;
-    private static LocalDateTime localdatetime;
+    private static DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static LocalDateTime now;
     private static String filename;
     private static void CreateFile() {
-        localdatetime = LocalDateTime.now();
-        //localdatetime = localdatetime.plusDays(1); //To hack next day simulation
-        day = localdatetime.getDayOfMonth();
-        month = localdatetime.getMonthValue();
-        year = localdatetime.getYear();
         try {
-            filename = year + "-" + month + "-" + day + ".txt";
+            now = LocalDateTime.now();
+            String formatDate = now.format(formatterDate);
+            filename = formatDate + ".txt";
             File myObj = new File(filename);
-            //File myObj = new File("C:\\Users\\mikke\\filename.txt"); //Der skal være dobbelt backslash, da single backslash er escape character
             if (myObj.createNewFile()) {
                 System.out.println("LogFile created: " + myObj.getName() + "\n" + myObj.getAbsolutePath());
             }
@@ -32,9 +28,10 @@ public abstract class LogFile {
     public static void writeToLog(String logMessage) {
         try {
             CreateFile();
-            localdatetime = LocalDateTime.now();
+            now = LocalDateTime.now();
+            String formatTime = now.format(formatterTime);
             FileWriter myWriter = new FileWriter(filename, true);
-            myWriter.write(""+localdatetime.getHour()+ ":" +localdatetime.getMinute()+":"+localdatetime.getSecond()+" "+ logMessage + System.lineSeparator());
+            myWriter.write(formatTime +" "+ logMessage + System.lineSeparator());
             myWriter.close();
         } catch (IOException e) {
             System.out.println(e);

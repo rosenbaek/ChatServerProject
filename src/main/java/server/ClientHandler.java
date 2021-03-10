@@ -45,7 +45,9 @@ public class ClientHandler implements Runnable{
         loggedIn = protocol.login(firstInput);
         if(loggedIn){
             user = protocol.getUser();
-            System.out.println("User logged in: "+user.getUsername());
+            String userLog = "("+Thread.currentThread().getName()+")"+" User logged in: "+user.getUsername();
+            LogFile.writeToLog(userLog);
+            System.out.println(userLog);
             server.addToMyClients(user.getUsername(),this);
             //next line is used to send ONLINE# message everytime someone logs in
             server.sendToUsers(toUsers,protocol.showOnlineUsers());
@@ -55,13 +57,16 @@ public class ClientHandler implements Runnable{
                     loggedIn = protocol.handleCommand(inputMsg);
                 }catch (Exception e){
                     System.out.println("Client terminated the session outside protocol: "+Thread.currentThread().getName());
+                    //LogFile.writeToLog();
                     loggedIn = false;
                 }
             }
 
             user.setToOffline();
             server.removeFromMyClients(user.getUsername());
-            System.out.println("User logged off: "+user.getUsername());
+            userLog = "("+Thread.currentThread().getName()+")"+" User logged off: "+user.getUsername();
+            System.out.println(userLog);
+            LogFile.writeToLog(userLog);
             //Used to send ONLINE# message everytime someone logs off
             server.sendToUsers(toUsers,protocol.showOnlineUsers());
         }
