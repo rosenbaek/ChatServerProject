@@ -110,8 +110,11 @@ public class Protocol {
                 }
                 toUsers = users.split(",");
                 String finalMessage = "MESSAGE#"+user.getUsername()+"#"+message;
-                server.sendToUsers(toUsers,finalMessage);
-                //CLOSE#2 = User not found
+                if (!server.sendToUsers(toUsers,finalMessage)) {
+                    System.out.println(Thread.currentThread().getName()+": CLOSE#2");
+                    outputStream.println("CLOSE#2");//CLOSE#2 = user not found
+                    return false;
+                }
                 break;
             default:
                 userLog = "("+Thread.currentThread().getName()+")"+" CLOSE#1 "+user.getUsername();

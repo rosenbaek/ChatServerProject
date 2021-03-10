@@ -40,22 +40,30 @@ public class Server {
         this.myClients.remove(username);
     }
 
-    public void sendToUsers(String[] toUsers, String msg){
+    public boolean sendToUsers(String[] toUsers, String msg){
         //Used to send to all users
         if(toUsers[0].equals("*")){
             myClients.values().forEach(ClientHandler -> ClientHandler.protocol.msgFromUser(msg));
-            return;
+            return true;
         }
 
         //Used to send to specific users
         ClientHandler clientHandler;
+        boolean userFound = false;
         for (String tmp:myClients.keySet()) {
+
             for (int i = 0; i < toUsers.length; i++) {
                 if (toUsers[i].equals(tmp)){
                     clientHandler = myClients.get(tmp);
                     clientHandler.protocol.msgFromUser(msg);
+                    userFound = true;
                 }
             }
+
         }
+        if (userFound == false) {
+            return false;
+        }
+        return true;
     }
 }

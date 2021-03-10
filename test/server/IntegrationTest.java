@@ -64,6 +64,8 @@ public class IntegrationTest {
     public void tearDown() throws IOException {
         socketMikkel.close();
         socketChristian.close();
+        socketMathias.close();
+        socketLars.close();
     }
 
 
@@ -131,7 +133,7 @@ public class IntegrationTest {
         mikkelOutputStream.println("CONNECT#Mikkel");
         System.out.println(scannerMikkel.nextLine()); //ONLINE#Mikkel - Disregard for Mikkel
         mikkelOutputStream.println("SEND#Peter#hej med dig");
-        assertEquals("CLOSE#1", scannerMikkel.nextLine());
+        assertEquals("CLOSE#2", scannerMikkel.nextLine());
     }
 
     @Test
@@ -141,6 +143,5 @@ public class IntegrationTest {
         mikkelOutputStream.println("fejl");
         assertEquals("CLOSE#1", scannerMikkel.nextLine()); //We have not created a client, so NoSuchElement expected
     }
-
-
+    
 }
