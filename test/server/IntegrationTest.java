@@ -143,5 +143,5 @@ public class IntegrationTest {
         mikkelOutputStream.println("fejl");
         assertEquals("CLOSE#1", scannerMikkel.nextLine()); //We have not created a client, so NoSuchElement expected
     }
-    
+
 }
