@@ -1,14 +1,9 @@
 package server;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -16,9 +11,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegrationTest {
     public static Thread thread;
-    Scanner scanner;
-    Socket socket;
-    PrintWriter pw;
+    Scanner scannerMikkel;
+    Scanner scannerChristian;
+    Scanner scannerMathias;
+    Scanner scannerLars;
+    Socket socketMikkel;
+    Socket socketChristian;
+    Socket socketMathias;
+    Socket socketLars;
+    PrintWriter mikkelOutputStream;
+    PrintWriter christianOutputStream;
+    PrintWriter mathiasOutputStream;
+    PrintWriter larsOutputStream;
 
     @BeforeAll
     public static void startServer(){
@@ -38,23 +42,105 @@ public class IntegrationTest {
 
     @BeforeEach
     public void setUp() throws IOException {
-        socket = new Socket("localhost",8088);
-        scanner = new Scanner(socket.getInputStream());
-        pw = new PrintWriter(socket.getOutputStream(),true);
+        socketMikkel = new Socket("localhost",8088);
+        scannerMikkel = new Scanner(socketMikkel.getInputStream());
+        mikkelOutputStream = new PrintWriter(socketMikkel.getOutputStream(),true);
+
+        socketChristian = new Socket("localhost", 8088);
+        scannerChristian = new Scanner(socketChristian.getInputStream());
+        christianOutputStream = new PrintWriter(socketChristian.getOutputStream(),true);
+
+        socketMathias = new Socket("localhost", 8088);
+        scannerMathias = new Scanner(socketMathias.getInputStream());
+        mathiasOutputStream = new PrintWriter(socketMathias.getOutputStream(),true);
+
+        socketLars = new Socket("localhost", 8088);
+        scannerLars = new Scanner(socketLars.getInputStream());
+        larsOutputStream = new PrintWriter(socketLars.getOutputStream(),true);
     }
 
 
     @AfterEach
     public void tearDown() throws IOException {
-        socket.close();
+        socketMikkel.close();
+        socketChristian.close();
     }
 
 
     @Test
-    public void test() throws IOException {
-        pw.println("CONNECT#Mikkel");
-        String actual = scanner.nextLine();
+    public void testConnectSucceed() throws IOException {
+        mikkelOutputStream.println("CONNECT#Mikkel");
+        String actual = scannerMikkel.nextLine();
         assertEquals("ONLINE#Mikkel",actual);
+
+        Socket socket2 = new Socket("localhost", 8088);
+        Scanner scanner2 = new Scanner(socket2.getInputStream());
+        PrintWriter pw2 = new PrintWriter(socket2.getOutputStream(),true);
+
+        pw2.println("CONNECT#Christian");
+        assertEquals("ONLINE#Mikkel,Christian", scannerMikkel.nextLine());
+        assertNotEquals("ONLINE#Christian", scanner2.nextLine());
     }
+
+    @Test
+    public void testConnectFailure() throws IOException {
+        mikkelOutputStream.println("CONNECT#NoUser");
+        String actual = scannerMikkel.nextLine();
+        assertEquals("CLOSE#2",actual);
+    }
+
+    @Test
+    public void testFirstLoginInputFailure() throws IOException {
+        mikkelOutputStream.println("connect#NoUser");
+        String actual = scannerMikkel.nextLine();
+        assertEquals("CLOSE#1",actual);
+    }
+
+    @Test
+    public void testSendToALLSucceed() throws IOException {
+        mikkelOutputStream.println("CONNECT#Mikkel");
+        System.out.println(scannerMikkel.nextLine()); //ONLINE#Mikkel
+
+        christianOutputStream.println("CONNECT#Christian");
+
+        System.out.println(scannerMikkel.nextLine()); //ONLINE#Mikkel,Christian
+        christianOutputStream.println("SEND#*#message");
+        assertEquals("MESSAGE#Christian#message", scannerMikkel.nextLine());
+    }
+
+    @Test
+    public void testSendToUserSucceed() throws IOException {
+        mikkelOutputStream.println("CONNECT#Mikkel");
+        System.out.println(scannerMikkel.nextLine()); //ONLINE#Mikkel - Disregard for Mikkel
+        mathiasOutputStream.println("CONNECT#Mathias");
+        System.out.println(scannerMikkel.nextLine()); //ONLINE#Mikkel,Mathias - Disregard for Mikkel
+        System.out.println(scannerMathias.nextLine()); //ONLINE#Mikkel,Mathias - Disregard for Mathias
+
+        christianOutputStream.println("CONNECT#Christian");
+        System.out.println(scannerMikkel.nextLine()); //ONLINE#Mikkel,Mathias,Christian - Disregard for Mikkel
+        System.out.println(scannerMathias.nextLine()); //ONLINE#Mikkel,Mathias,Christian - Disregard for Mathias
+
+        christianOutputStream.println("SEND#Mikkel#message");
+        assertEquals("MESSAGE#Christian#message", scannerMikkel.nextLine());
+        larsOutputStream.println("CONNECT#Lars");
+        assertEquals("ONLINE#Mikkel,Mathias,Christian,Lars", scannerMathias.nextLine());
+    }
+
+    @Test
+    public void testSendToNonExistingUser() throws IOException {
+        mikkelOutputStream.println("CONNECT#Mikkel");
+        System.out.println(scannerMikkel.nextLine()); //ONLINE#Mikkel - Disregard for Mikkel
+        mikkelOutputStream.println("SEND#Peter#hej med dig");
+        assertEquals("CLOSE#1", scannerMikkel.nextLine());
+    }
+
+    @Test
+    public void testIllegalInput() throws IOException {
+        mikkelOutputStream.println("CONNECT#Mikkel");
+        System.out.println(scannerMikkel.nextLine()); //ONLINE#Mikkel
+        mikkelOutputStream.println("fejl");
+        assertEquals("CLOSE#1", scannerMikkel.nextLine()); //We have not created a client, so NoSuchElement expected
+    }
+
 
 }

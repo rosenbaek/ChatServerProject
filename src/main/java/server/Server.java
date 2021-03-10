@@ -19,6 +19,7 @@ public class Server {
         hardcodedUsers.put(1, new User("Mikkel"));
         hardcodedUsers.put(2, new User("Mathias"));
         hardcodedUsers.put(3, new User("Christian"));
+        hardcodedUsers.put(4, new User("Lars"));
     }
 
     public void startServer(int port) throws IOException {
