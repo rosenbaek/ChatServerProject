@@ -46,9 +46,21 @@ Do you need help
 
 Onsdag:
 How far you have come
+-Added logfile functionality, to log ERROR and INFO
+-Bug fix in client code when illegal input is sent
+-Bug fixed when entering wrong input before CONNECT#
+-Bug fixed when wrong login command sent
+-Added Integration unit tests
+-Fixed bug when send msg to non existing user
+-Implement log messages when attempting to send msg to non existing user
+
+-We are done!
 Problems you have had
+-None
 Who did what
+-We are working together sharing screen and livecoding.
 Do you need help
+- NO
 
 
 Torsdag:
