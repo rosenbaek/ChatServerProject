@@ -11,6 +11,13 @@ public abstract class LogFile {
     private static DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static LocalDateTime now;
     private static String filename;
+
+    public enum Level {
+        ERROR,
+        INFO
+    }
+
+
     private static void CreateFile() {
         try {
             now = LocalDateTime.now();
@@ -25,13 +32,14 @@ public abstract class LogFile {
         }
     }
 
-    public static void writeToLog(String logMessage) {
+    public static void writeToLog(String logMessage, Level level) {
         try {
+
             CreateFile();
             now = LocalDateTime.now();
             String formatTime = now.format(formatterTime);
             FileWriter myWriter = new FileWriter(filename, true);
-            myWriter.write(formatTime +" "+ logMessage + System.lineSeparator());
+            myWriter.write(formatTime +" "+ level + " " + logMessage + System.lineSeparator());
             myWriter.close();
         } catch (IOException e) {
             System.out.println(e);

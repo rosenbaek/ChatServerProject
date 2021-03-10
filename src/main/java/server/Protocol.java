@@ -11,6 +11,7 @@ public class Protocol {
     boolean loggedIn = false;
     User user;
     Server server;
+    String userLog;
 
 
     public Protocol(PrintWriter outputStream,Server server) {
@@ -26,8 +27,10 @@ public class Protocol {
             command = inputMsg.substring(0,charAt);
             msg = inputMsg.substring(charAt+1);
         } catch (Exception e) {
-            System.out.println(Thread.currentThread().getName()+": CLOSE#1");//CLOSE#1 = Illegal input recieved
+            userLog = "("+Thread.currentThread().getName()+")"+" CLOSE#1 "+user.getUsername();
+            System.out.println(userLog);//CLOSE#1 = Illegal input recieved
             outputStream.println("CLOSE#1");
+            LogFile.writeToLog(userLog, LogFile.Level.ERROR);
             return false;
         }
         return true;
@@ -42,8 +45,10 @@ public class Protocol {
 
         //Check if protocol is followed
         if (!command.equals("CONNECT")){
-            System.out.println(Thread.currentThread().getName()+": CLOSE#1");//CLOSE#1 = Illegal input recieved
+            userLog = "("+Thread.currentThread().getName()+")"+" CLOSE#1 ";
+            System.out.println(userLog);//CLOSE#1 = Illegal input recieved
             outputStream.println("CLOSE#1");
+            LogFile.writeToLog(userLog, LogFile.Level.ERROR);
             return false;
         }
 
@@ -54,8 +59,10 @@ public class Protocol {
                 return true;
             }
         }
-        System.out.println(Thread.currentThread().getName()+": CLOSE#2");//CLOSE#2 = User not found
+        userLog = "("+Thread.currentThread().getName()+")"+" CLOSE#2 attempted username: "+ msg;
+        System.out.println(userLog);//CLOSE#2 = User not found
         outputStream.println("CLOSE#2");
+        LogFile.writeToLog(userLog, LogFile.Level.ERROR);
         return false;
     }
 
@@ -107,8 +114,10 @@ public class Protocol {
                 //CLOSE#2 = User not found
                 break;
             default:
-                System.out.println(Thread.currentThread().getName()+": CLOSE#1");
-                outputStream.println("CLOSE#1"); //CLOSE#1 = Illegal input recieved
+                userLog = "("+Thread.currentThread().getName()+")"+" CLOSE#1 "+user.getUsername();
+                System.out.println(userLog);//CLOSE#1 = Illegal input recieved
+                outputStream.println("CLOSE#1");
+                LogFile.writeToLog(userLog, LogFile.Level.ERROR);
                 return false;
         }
         return true;
