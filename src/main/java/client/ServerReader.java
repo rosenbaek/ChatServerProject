@@ -15,7 +15,7 @@ class ServerReader implements Runnable {
         while(Client.keepRunning) {
             try {
                 String message = scanner.nextLine();
-                System.out.println("message: "+message);
+                System.out.println(message);
                 if (message.equals("CLOSE#1") || message.equals("CLOSE#2")){
                     System.exit(1);
                     //TODO Make it a more clean exit
