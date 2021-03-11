@@ -62,10 +62,22 @@ public class IntegrationTest {
 
     @AfterEach
     public void tearDown() throws IOException {
-        socketMikkel.close();
-        socketChristian.close();
-        socketMathias.close();
-        socketLars.close();
+        if (!socketMikkel.isClosed() ){
+            mikkelOutputStream.println("CLOSE#");
+            socketMikkel.close();
+        }
+        if (!socketChristian.isClosed()){
+            christianOutputStream.println("CLOSE#");
+            socketChristian.close();
+        }
+        if (!socketMathias.isClosed()){
+            mathiasOutputStream.println("CLOSE#");
+            socketMathias.close();
+        }
+        if (!socketLars.isClosed()){
+            larsOutputStream.println("CLOSE#");
+            socketLars.close();
+        }
     }
 
 

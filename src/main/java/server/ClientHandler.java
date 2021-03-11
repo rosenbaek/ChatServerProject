@@ -43,6 +43,7 @@ public class ClientHandler implements Runnable{
         //This line below is to make sure the connect statement is the first executed statement
         String firstInput = inputStream.nextLine();
         loggedIn = protocol.login(firstInput);
+
         if(loggedIn){
             user = protocol.getUser();
             String userLog = "("+Thread.currentThread().getName()+")"+" User logged in: "+user.getUsername();

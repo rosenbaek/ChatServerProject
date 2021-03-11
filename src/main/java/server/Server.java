@@ -7,14 +7,15 @@ import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Server {
     private ServerSocket ss;
     public static HashMap<Integer, User> hardcodedUsers = new HashMap<Integer, User>();
     private ConcurrentHashMap<String,ClientHandler> myClients = new ConcurrentHashMap<>();
-    ExecutorService es = Executors.newFixedThreadPool(5);
-
+    //ExecutorService es = Executors.newFixedThreadPool(5);
+    ExecutorService es = Executors.newCachedThreadPool();
     static {
         hardcodedUsers.put(1, new User("Mikkel"));
         hardcodedUsers.put(2, new User("Mathias"));
